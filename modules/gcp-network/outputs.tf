@@ -4,9 +4,3 @@ output "kafka_vpc" {
 output "kafka_subnet" {
   value       = "${google_compute_subnetwork.kafka_subnet.self_link}"
 }
-output "management_subnet" {
-  value       = "${google_compute_subnetwork.management_subnet.self_link}"
-}
-output "monitoring_subnet" {
-  value       = "${google_compute_subnetwork.monitoring_subnet.self_link}"
-}

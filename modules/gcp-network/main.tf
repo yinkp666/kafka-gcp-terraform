@@ -10,20 +10,6 @@ resource "google_compute_subnetwork" "kafka_subnet" {
   network       = "${google_compute_network.kafka_vpc.self_link}"
 }
 
-resource "google_compute_subnetwork" "management_subnet" {
-  name          = "management-subnet"
-  ip_cidr_range = "10.1.2.0/24"
-  region        = "${var.management_region}"
-  network       = "${google_compute_network.kafka_vpc.self_link}"
-}
-
-resource "google_compute_subnetwork" "monitoring_subnet" {
-  name          = "monitoring-subnet"
-  ip_cidr_range = "10.1.3.0/24"
-  region        = "${var.monitoring_region}"
-  network       = "${google_compute_network.kafka_vpc.self_link}"
-}
-
 resource "google_compute_firewall" "allow-internal" {
   name    = "${google_compute_network.kafka_vpc.name}-allow-internal"
   network = "${google_compute_network.kafka_vpc.name}"
@@ -39,9 +25,7 @@ resource "google_compute_firewall" "allow-internal" {
     ports    = ["0-65535"]
   }
   source_ranges = [
-    "${google_compute_subnetwork.kafka_subnet.ip_cidr_range}",
-    "${google_compute_subnetwork.management_subnet.ip_cidr_range}",
-    "${google_compute_subnetwork.monitoring_subnet.ip_cidr_range}"
+    "${google_compute_subnetwork.kafka_subnet.ip_cidr_range}"
    ]
 }
 resource "google_compute_firewall" "allow-ssh" {

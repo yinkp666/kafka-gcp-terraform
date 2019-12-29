@@ -5,7 +5,7 @@ resource "google_compute_network" "kafka_vpc" {
 
 resource "google_compute_subnetwork" "kafka_subnet" {
   name          = "kafka-subnet"
-  ip_cidr_range = "10.1.1.0/24"
+  ip_cidr_range = "10.59.64.0/18"
   region        = "${var.clusters_region}"
   network       = "${google_compute_network.kafka_vpc.self_link}"
 }

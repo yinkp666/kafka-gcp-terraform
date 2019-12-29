@@ -9,7 +9,7 @@ data "template_file" "zk_startup" {
 resource "google_compute_instance" "zookeeper" {
   count        = "${var.servers}"
   name         = "zoo${count.index + 1}"
-  machine_type = "n1-standard-2"
+  machine_type = "n1-standard-8"
   zone         = "${var.zones[count.index]}"
   tags         = ["ssh"]
 

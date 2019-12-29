@@ -1,8 +1,8 @@
 resource "google_compute_disk" "kafka-data-disk" {
   count                     = "${var.servers}"
   name                      = "kafka-data-disk-${count.index + 1}"
-  type                      = "pd-ssd"
-  size                      = "10"
+  type                      = "pd-hdd"
+  size                      = "4096"
   zone                      = "${var.zones[count.index]}"
   physical_block_size_bytes = 4096
 }
@@ -18,7 +18,7 @@ data "template_file" "kafka_startup" {
 resource "google_compute_instance" "kafka-broker" {
   count        = "${var.servers}"
   name         = "kafka${count.index + 1}"
-  machine_type = "n1-standard-2"
+  machine_type = "n1-standard-8"
   zone         = "${var.zones[count.index]}"
   tags         = ["ssh"]
 
